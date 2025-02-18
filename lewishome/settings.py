@@ -5,7 +5,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = str(os.environ.get("DEBUG")) == "1"
-print(SECRET_KEY)
 
 ALLOWED_HOSTS = ['0.0.0.0']
 
@@ -77,8 +76,8 @@ DB_IS_AVAIL = all([
 ]
 )
 
-if DB_IS_AVAIL and POSTGRES_READY:
-  DATABASES = {
+if DB_IS_AVAIL:
+    DATABASES = {
     "default":{
       "ENGINE":"django.db.backends.postgresql",
       "NAME":DB_DATABASE,
