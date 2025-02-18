@@ -62,7 +62,7 @@ DATABASES = {
 }
 DB_USERNAME = os.environ.get("POSTGRES_USER")
 DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-DB_DATABASE = os.environ.get("POSTGRES_DB")
+DB_DATABASE = os.environ.get("POSTGRES_NAME")
 DB_HOST = os.environ.get("POSTGRES_HOST")
 DB_PORT = os.environ.get("POSTGRES_PORT")
 POSTGRES_READY = str(os.environ.get("POSTGRES_READY")) == "1"

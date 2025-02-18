@@ -4,5 +4,6 @@ django-dotenv
 django-storages
 gunicorn
 psycopg2-binary
+python-dotenv
 requests
 
