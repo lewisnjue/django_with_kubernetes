@@ -1,5 +1,11 @@
+from doctest import debug
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+from urllib.parse import urlparse
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,7 +83,7 @@ DB_IS_AVAIL = all([
 ]
 )
 
-if DB_IS_AVAIL:
+if DB_IS_AVAIL and POSTGRES_READY:
     DATABASES = {
     "default":{
       "ENGINE":"django.db.backends.postgresql",
@@ -88,7 +94,18 @@ if DB_IS_AVAIL:
       "PORT":DB_PORT
     }
   }
-
+if not DEBUG:
+    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': tmpPostgres.path.replace('/', ''),
+            'USER': tmpPostgres.username,
+            'PASSWORD': tmpPostgres.password,
+            'HOST': tmpPostgres.hostname,
+            'PORT': 5432,
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
