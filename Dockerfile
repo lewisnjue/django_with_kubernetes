@@ -2,7 +2,7 @@ FROM python:3.9.7-slim
 COPY .  /app
 WORKDIR /app 
 
-RUN apt update && apt install -y bash
+RUN apt update && apt install -y bash postgresql-client
 
 RUN python3 -m venv /opt/env 
 RUN /opt/env/bin/pip install pip --upgrade && \

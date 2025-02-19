@@ -1,9 +1,8 @@
-
+python-dotenv
 Django>3.2,<4.0
-django-dotenv
 django-storages
 gunicorn
 psycopg2-binary
-python-dotenv
+
 requests
 
