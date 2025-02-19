@@ -4,5 +4,15 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"terminal.integrated.env.linux": {
+			"KUBECONFIG":"${workingspaceFolder}/.kube/kubeconfig.yaml"
+		},
+		"terminal.integrated.env.osx": {
+			"KUBECONFIG":"${workingspaceFolder}/.kube/kubeconfig.yaml"
+		},
+		"terminal.integrated.env.windows": {
+			"KUBECONFIG":"${workingspaceFolder}\\.kube\\kubeconfig.yaml"
+		}
+	}
 }
