@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse
-
+import dj_database_url
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -12,9 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = str(os.environ.get("DEBUG")) == "1"
 
-ALLOWED_HOSTS = ['0.0.0.0', '8000-lewisnjue-djangowithkub-15dn6hmo8y6.ws-eu117.gitpod.io',
-                 'localhost']
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -60,52 +58,10 @@ WSGI_APPLICATION = 'lewishome.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+DATABASE_URL = os.getenv("DATABASE_URL")
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(env="DATABASE_URL", conn_max_age=600, ssl_require=True)
 }
-DB_USERNAME = os.environ.get("POSTGRES_USER")
-DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
-DB_DATABASE = os.environ.get("POSTGRES_NAME")
-DB_HOST = os.environ.get("POSTGRES_HOST")
-DB_PORT = os.environ.get("POSTGRES_PORT")
-POSTGRES_READY = str(os.environ.get("POSTGRES_READY")) == "1"
-
-DB_IS_AVAIL = all([
-  DB_USERNAME,
-  DB_PASSWORD,
-  DB_DATABASE,
-  DB_HOST,
-  DB_PORT,
-]
-)
-
-if DB_IS_AVAIL and POSTGRES_READY:
-    DATABASES = {
-    "default":{
-      "ENGINE":"django.db.backends.postgresql",
-      "NAME":DB_DATABASE,
-      "USER":DB_USERNAME,
-      "PASSWORD":DB_PASSWORD,
-      "HOST":DB_HOST,
-      "PORT":DB_PORT
-    }
-  }
-if not DEBUG:
-    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': tmpPostgres.path.replace('/', ''),
-            'USER': tmpPostgres.username,
-            'PASSWORD': tmpPostgres.password,
-            'HOST': tmpPostgres.hostname,
-            'PORT': 5432,
-        }
-    }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
