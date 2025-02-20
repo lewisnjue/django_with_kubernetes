@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: django-k8s-web
-        image: lewiskinyuanjue/django-k8s:v7
+        image: lewiskinyuanjue/django-k8s:latest
         envFrom:
         - secretRef:
             name: django  # Loads all variables from the secret

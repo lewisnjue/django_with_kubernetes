@@ -11,11 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = str(os.environ.get("DEBUG")) == "1"
-
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-
-# Application definition
-
+ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
