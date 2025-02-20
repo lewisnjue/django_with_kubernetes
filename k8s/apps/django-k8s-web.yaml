@@ -16,19 +16,23 @@ spec:
     spec:
       containers:
       - name: django-k8s-web
-        image: lewiskinyuanjue/django-k8s:latest
+        image: lewiskinyuanjue/django-k8s:v7
         envFrom:
         - secretRef:
-            name: django-k8s-env
+            name: django  # Loads all variables from the secret
+        env:
+        - name: ALLOWED_HOSTS
+          value: "django-k8s-web-service.default.svc.cluster.local"
         ports:
         - containerPort: 8000
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: django-k8s-web-service
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  
   ports:
   - name: http
     protocol: TCP
@@ -36,3 +40,4 @@ spec:
     targetPort: 8000
   selector:
     app: django-k8s-deployment
+

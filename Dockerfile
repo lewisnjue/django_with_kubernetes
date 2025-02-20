@@ -9,6 +9,7 @@ RUN /opt/env/bin/pip install pip --upgrade && \
     /opt/env/bin/pip install -r requirements.txt 
 
 RUN chmod +x /app/entrypoint.sh
+EXPOSE 8000
 
 
 CMD [ "bash", "/app/entrypoint.sh" ]
